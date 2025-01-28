@@ -1,0 +1,4 @@
+.env
+
+# ignore anything with .env
+.env.*
