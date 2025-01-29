@@ -47,7 +47,7 @@ def main():
     for index, row in data.iterrows():
         # Update the format to match your CSV
         scheduled_date = datetime.strptime(row['Date'], "%m/%d/%y")  # Parse the 'Date' column
-        if now.date() >= scheduled_date.date():  # Compare only the dates
+        if now.date() == scheduled_date.date():  # Compare only the dates
             receiver_email = row['Email']  # Assumes 'Email' column in CSV
             link = row['Link']  # Assumes 'Link' column in CSV
             subject = f"Here's the daily link for {scheduled_date.strftime('%m/%d/%Y')}!"
