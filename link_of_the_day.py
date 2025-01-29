@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import csv
 import smtplib
 from email.mime.text import MIMEText
@@ -5,20 +8,13 @@ from email.mime.multipart import MIMEMultipart
 import pandas as pd
 from dotenv import load_dotenv
 import os
-import datetime
+from datetime import datetime  # Ensure this is correct
 
+# Load environment variables
 load_dotenv()
 
 sender_email = os.getenv("SENDER_EMAIL")
 sender_password = os.getenv("SENDER_PASSWORD")
-
-
-
-def read_csv(file_path):
-    """Reads data from a CSV file."""
-    with open(file_path, mode='r') as file:
-        reader = csv.DictReader(file)
-        return list(reader)
 
 def send_email(receiver_email, subject, body, sender_email, sender_password):
     """Sends an email with the given subject and body."""
@@ -41,21 +37,23 @@ def send_email(receiver_email, subject, body, sender_email, sender_password):
 
 def main():
     # File path to your CSV
-    csv_file_path = "data.csv"  # Replace with your CSV file path
-    sender_email = "jake.ford927@gmail.com"  # Replace with your Gmail address
-    # get today's date
-    today = datetime.date.today()
-    
-    subject = f"Here's the daily link for {today}!"
+    #csv_file_path = "data.csv"  # Replace with your CSV file path
+    csv_file_path = '/Users/jacobford/Documents/GitHub/LinkOfTheDay/data.csv'
     
     # Read data from the CSV file
-    data = pd.read_csv(csv_file_path)    
-   
+    data = pd.read_csv(csv_file_path)
+    now = datetime.now()
+
     for index, row in data.iterrows():
-        receiver_email = row['Email']  # Assumes 'Email' column in CSV
-        link = row['Link']  # Assumes 'Link' column in CSV
-        body = f"Hello,\n\nHere is your link: {link}\n\nBest regards,\nYour Name"
-        send_email(receiver_email, subject, body, sender_email, sender_password)
+        # Update the format to match your CSV
+        scheduled_date = datetime.strptime(row['Date'], "%m/%d/%y")  # Parse the 'Date' column
+        if now.date() >= scheduled_date.date():  # Compare only the dates
+            receiver_email = row['Email']  # Assumes 'Email' column in CSV
+            link = row['Link']  # Assumes 'Link' column in CSV
+            subject = f"Here's the daily link for {scheduled_date.strftime('%m/%d/%Y')}!"
+            blurb = row['Blurb']  # Assumes 'Blurb' column in CSV
+            body = f"Greetings Rambo, \n\n It may be the finest day of my life :) \n\nHere is your weekly link of interest: {link} \n\n{blurb} \n\nLove ya,\nJake"
+            send_email(receiver_email, subject, body, sender_email, sender_password)
 
 if __name__ == "__main__":
     main()
