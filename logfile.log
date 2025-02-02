@@ -33,3 +33,9 @@ Traceback (most recent call last):
   File "/Users/jacobford/Documents/GitHub/LinkOfTheDay/link_of_the_day.py", line 48, in main
     scheduled_date = datetime.strptime(row['Date'], "%m/%d/%y")  # Parse the 'Date' column
 TypeError: strptime() argument 1 must be str, not float
+2025-02-02 11:40:15 - Script started.
+2025-02-02 11:40:18 - Email sent to jake.ford927@gmail.com
+2025-02-02 11:40:18 - Script completed successfully.
+2025-02-02 11:57:21 - Script started.
+2025-02-02 11:57:23 - Email sent to jake.ford927@gmail.com
+2025-02-02 11:57:23 - Script completed successfully.
