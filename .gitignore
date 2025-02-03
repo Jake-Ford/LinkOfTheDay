@@ -6,3 +6,5 @@
 
 # ignore any csv files
 *.csv
+
+data.csv
