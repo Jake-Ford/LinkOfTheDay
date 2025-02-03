@@ -1,10 +1,5 @@
+
+
 .env
-
-# ignore anything with .env
 .env.*
-.csv*
-
-# ignore any csv files
 *.csv
-
-data.csv
